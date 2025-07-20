@@ -9,7 +9,7 @@ from pyinstaller_versionfile import create_versionfile_from_distribution
 from pyinstaller_versionfile import create_versionfile_from_input_file
 
 from .editable import package
-from .editable import TomlFile
+from .editable import pyproject
 from .format import format_file
 from .versionfile import from_distribution
 
@@ -179,12 +179,7 @@ def yaml(**kwargs):
     "distname",
     type=str,
 )
-@click.option(
-    "--toml",
-    type=TomlFile(),
-    default=None,
-    help="Path to pyproject.toml with version information.",
-)
+@pyproject()
 @options()
 def dist(toml, **kwargs):
 

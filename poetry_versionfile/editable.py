@@ -109,6 +109,22 @@ class TomlFile(click.Path):
         return value
 
 
+def pyproject(func=None):
+    """
+    Decorator to add a --toml click option with TomlFile type.
+    """
+
+    def decorator(f):
+        return click.option(
+            "--toml",
+            type=TomlFile(),
+            default=None,
+            help="Path to pyproject.toml with version information.",
+        )(f)
+
+    return decorator(func) if callable(func) else decorator
+
+
 @click.command(short_help="Create version file from local package.")
 @click.argument(
     "input-path",
@@ -126,12 +142,7 @@ class TomlFile(click.Path):
     ),
     default="version_file.txt",
 )
-@click.option(
-    "--toml",
-    type=TomlFile(),
-    default=None,
-    help="Path to pyproject.toml with version information.",
-)
+@pyproject()
 def package(input_path: str, output_file: str, toml: Path):
     """
     Install a local package in editable mode, extract its package name,
