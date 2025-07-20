@@ -9,8 +9,8 @@ from pyinstaller_versionfile import create_versionfile_from_distribution
 from pyinstaller_versionfile import create_versionfile_from_input_file
 
 from .editable import package
-from .editable import poetry
 from .editable import pyproject
+from .editable import toml
 from .format import format_file
 from .versionfile import from_distribution
 
@@ -184,14 +184,14 @@ def yaml(**kwargs):
 @options()
 def dist(toml, **kwargs):
 
-    from_distribution(
+    return from_distribution(
         pyproject=toml,
         **kwargs,
     )
 
 
 cli.add_command(package)
-cli.add_command(poetry)
+cli.add_command(toml)
 
 if __name__ == "__main__":
     cli()

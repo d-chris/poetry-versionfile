@@ -203,7 +203,7 @@ def package(
     show_default=True,
 )
 @clickx.traceback()
-def poetry(
+def toml(
     pyproject: Path,
     output_file: Path,
     uninstall: bool,

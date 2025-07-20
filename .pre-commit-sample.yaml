@@ -1,0 +1,4 @@
+- repo: https://github.com/d-chris/poetry-versionfile
+  rev: v0.0.0
+  hooks:
+    - id: versionfile-toml

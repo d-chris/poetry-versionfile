@@ -188,7 +188,7 @@ PyYAML = "*"
 
 [package.source]
 type = "git"
-url = "https://github.com/d-chris/pyinstaller-versionfile.git"
+url = "https://github.com/d-chris/pyinstaller-versionfile"
 reference = "b73ab8c05732606b8582fdd64a8d056c37073ec9"
 resolved_reference = "b73ab8c05732606b8582fdd64a8d056c37073ec9"
 
@@ -371,4 +371,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "54b3b4197bde6517a420714066b0ccda54bf44e528f0f1296476da97da462210"
+content-hash = "2bb4b4c99ce989139363eb9ffcd644e573b3a0a4253b8c7bd411a7aa79929d67"

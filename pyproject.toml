@@ -5,9 +5,11 @@ requires = [ "poetry-core" ]
 [tool.poetry]
 name = "poetry-versionfile"
 version = "0.0.0"
-description = ""
+description = "Generate Windows version files from package metadata"
 authors = [ "Christoph Dörrer <d-chris@web.de>" ]
 readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/d-chris/poetry-versionfile"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -16,7 +18,7 @@ pre-commit-hooks = ">=5.0.0"
 pip = ">=25.1.1"
 tomli = { version = ">=2.2.1", python = "<3.11" }
 click-tools = { git = "https://github.com/d-chris/click-tools", rev = "1872b11a1957f25d3e09bc9ff68bf795047b5448" }
-pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile.git", rev = "b73ab8c05732606b8582fdd64a8d056c37073ec9" }
+pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile", rev = "b73ab8c05732606b8582fdd64a8d056c37073ec9" }
 
 [tool.poetry.scripts]
 create-version-file = "poetry_versionfile.legacy:create_versionfile"
