@@ -7,6 +7,7 @@ from pathlib import Path
 import click
 import clickx
 
+from .format import format_file
 from .versionfile import from_distribution
 
 if sys.version_info >= (3, 11):
@@ -215,11 +216,15 @@ def toml(
     """
     with pip_editable(pyproject.parent, uninstall=uninstall) as package:
 
-        return from_distribution(
+        exitcode = from_distribution(
             output_file=output_file,
             distname=package,
             pyproject=pyproject,
         )
+
+        format_file(output_file)
+
+        return exitcode
 
 
 if __name__ == "__main__":
