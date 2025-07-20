@@ -58,14 +58,17 @@ def read_toml(
 
 
 def from_distribution(
-    output_file: str,
+    output_file: Path,
     distname: str,
     pyproject: str = None,
     **kwargs,
-) -> None:
+) -> int:
     """
     Create a version file from the distribution metadata.
     """
+
+    result = 0 if output_file.is_file() else 1
+
     m = MetaData.from_distribution(distname)
     # meta = m.__dict__
     meta = {k: getattr(m, k) for k in MetaData.key_conversion.values()}
@@ -75,4 +78,8 @@ def from_distribution(
     meta.update(param)
     meta.update({k: v for k, v in kwargs.items() if v is not None})
 
-    __create(MetaData(**meta), output_file)
+    __create(MetaData(**meta), str(output_file))
+
+    print(output_file.resolve(True))
+
+    return result

@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from pathlib import Path
 
 import click
+import clickx
 
 from .versionfile import from_distribution
 
@@ -36,9 +37,7 @@ def pip_install_editable(package_path: str) -> str:
         text=True,
     )
 
-    match = re.search(
-        r"(?<=^Building wheels for collected packages: )(.*)$", stdout, re.MULTILINE
-    )
+    match = re.search(r"(?<= Building editable for )(\S+)", stdout, re.MULTILINE)
 
     try:
         return match.group(0).strip()
@@ -91,6 +90,7 @@ class TomlFile(click.Path):
             "dir_okay": False,
             "readable": True,
             "path_type": Path,
+            "resolve_path": True,
         }
 
         super().__init__(**kwargs)
@@ -140,6 +140,7 @@ def pyproject(func=None):
     type=click.Path(
         writable=True,
         dir_okay=False,
+        path_type=Path,
     ),
     default="version_file.txt",
 )
@@ -156,12 +157,13 @@ def pyproject(func=None):
     help="Uninstall the package after creating the version file.",
     show_default=True,
 )
+@clickx.traceback()
 def package(
     input_path: Path,
-    output_file: str,
+    output_file: Path,
     toml: bool,
     uninstall: bool = True,
-):
+) -> int:
     """
     Install a local package in editable mode, extract its package name,
     read optional version parameters from a TOML [tool.versionfile] section,
@@ -172,7 +174,7 @@ def package(
 
     with pip_editable(input_path, uninstall=uninstall) as package:
 
-        from_distribution(
+        return from_distribution(
             output_file,
             package,
             pyproject=pyproject,
@@ -189,6 +191,7 @@ def package(
     type=click.Path(
         writable=True,
         dir_okay=False,
+        path_type=Path,
     ),
     default="version_file.txt",
 )
@@ -199,11 +202,12 @@ def package(
     help="Uninstall the package after creating the version file.",
     show_default=True,
 )
+@clickx.traceback()
 def poetry(
     pyproject: Path,
-    output_file: str,
+    output_file: Path,
     uninstall: bool,
-) -> None:
+) -> int:
     """
     Install a poetry package in editable mode, extract its package name,
     read optional version parameters from a TOML [tool.versionfile] section,
@@ -211,7 +215,7 @@ def poetry(
     """
     with pip_editable(pyproject.parent, uninstall=uninstall) as package:
 
-        from_distribution(
+        return from_distribution(
             output_file=output_file,
             distname=package,
             pyproject=pyproject,
