@@ -25,3 +25,6 @@ pip = [ "pip", "setuptools" ]
 create-version-file = "poetry_versionfile.legacy:create_versionfile"
 pyivf-make_version = "poetry_versionfile.legacy:make_version"
 versionfile = "poetry_versionfile.__main__:cli"
+
+[tool.versionfile]
+company_name = "d-chris"
