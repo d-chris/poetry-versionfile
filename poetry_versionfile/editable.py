@@ -96,7 +96,7 @@ class TomlFile(click.Path):
 
         super().__init__(**kwargs)
 
-        self.name = "TOML"
+        self.name = "PYPROJECT"
 
     def convert(self, value, param, ctx):
         value = super().convert(value, param, ctx)  # type: Path
@@ -166,11 +166,10 @@ def read_toml(
     default="version_file.txt",
 )
 @click.option(
-    "-t",
     "--toml",
     type=TomlFile(),
     default=None,
-    help="Path to a TOML file with additional version information.",
+    help="Path to pyproject.toml with version information.",
 )
 def package(input_path: str, output_file: str, toml: Path):
     """
