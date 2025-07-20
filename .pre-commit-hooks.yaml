@@ -1,0 +1,6 @@
+- id: versionfile-poetry
+  name: create versionfile from poetry
+  description: "Create versionfile for poetry package."
+  entry: versionfile poetry
+  files: "^pyproject.toml$"
+  language: python

@@ -9,6 +9,7 @@ from pyinstaller_versionfile import create_versionfile_from_distribution
 from pyinstaller_versionfile import create_versionfile_from_input_file
 
 from .editable import package
+from .editable import poetry
 from .editable import pyproject
 from .format import format_file
 from .versionfile import from_distribution
@@ -190,6 +191,7 @@ def dist(toml, **kwargs):
 
 
 cli.add_command(package)
+cli.add_command(poetry)
 
 if __name__ == "__main__":
     cli()

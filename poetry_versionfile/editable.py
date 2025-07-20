@@ -132,6 +132,7 @@ def pyproject(func=None):
         exists=True,
         file_okay=False,
         readable=True,
+        path_type=Path,
     ),
 )
 @click.argument(
@@ -142,20 +143,78 @@ def pyproject(func=None):
     ),
     default="version_file.txt",
 )
-@pyproject()
-def package(input_path: str, output_file: str, toml: Path):
+@click.option(
+    "--toml",
+    is_flag=True,
+    default=False,
+    help="Use pyproject.toml for metadata.",
+)
+@click.option(
+    "--uninstall/--no-uninstall",
+    default=False,
+    is_flag=True,
+    help="Uninstall the package after creating the version file.",
+    show_default=True,
+)
+def package(
+    input_path: Path,
+    output_file: str,
+    toml: bool,
+    uninstall: bool = True,
+):
     """
     Install a local package in editable mode, extract its package name,
     read optional version parameters from a TOML [tool.versionfile] section,
     and create a version file from the package distribution.
     """
 
-    with pip_editable(input_path) as package:
+    pyproject = input_path.joinpath("pyproject.toml").resolve(True) if toml else None
+
+    with pip_editable(input_path, uninstall=uninstall) as package:
 
         from_distribution(
             output_file,
             package,
-            pyproject=toml,
+            pyproject=pyproject,
+        )
+
+
+@click.command(short_help="Create version file from poetry package.")
+@click.argument(
+    "pyproject",
+    type=TomlFile(),
+)
+@click.argument(
+    "output_file",
+    type=click.Path(
+        writable=True,
+        dir_okay=False,
+    ),
+    default="version_file.txt",
+)
+@click.option(
+    "--uninstall/--no-uninstall",
+    default=False,
+    is_flag=True,
+    help="Uninstall the package after creating the version file.",
+    show_default=True,
+)
+def poetry(
+    pyproject: Path,
+    output_file: str,
+    uninstall: bool,
+) -> None:
+    """
+    Install a poetry package in editable mode, extract its package name,
+    read optional version parameters from a TOML [tool.versionfile] section,
+    and create a version_file.txt.
+    """
+    with pip_editable(pyproject.parent, uninstall=uninstall) as package:
+
+        from_distribution(
+            output_file=output_file,
+            distname=package,
+            pyproject=pyproject,
         )
 
 
