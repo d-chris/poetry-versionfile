@@ -1,0 +1,13 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [ "poetry-core" ]
+
+[tool.poetry]
+name = "poetry-versionfile"
+version = "0.0.0"
+description = ""
+authors = [ "Christoph Dörrer <d-chris@web.de>" ]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
