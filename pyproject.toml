@@ -24,3 +24,4 @@ pip = [ "pip", "setuptools" ]
 [tool.poetry.scripts]
 create-version-file = "poetry_versionfile.legacy:create_versionfile"
 pyivf-make_version = "poetry_versionfile.legacy:make_version"
+versionfile = "poetry_versionfile.__main__:cli"
