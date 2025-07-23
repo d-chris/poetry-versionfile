@@ -18,7 +18,11 @@ pre-commit-hooks = ">=5.0.0"
 pip = ">=25.1.1"
 tomli = { version = ">=2.2.1", python = "<3.11" }
 click-tools = { git = "https://github.com/d-chris/click-tools", rev = "1872b11a1957f25d3e09bc9ff68bf795047b5448" }
-pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile", rev = "b73ab8c05732606b8582fdd64a8d056c37073ec9" }
+pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile", rev = "3cf68d0d2ca79f3d270bcb934d7b2e936b8c9ae8" }
+pyinstaller = { version = "^6.14.2", optional = true, python = "<3.14" }
+
+[tool.poetry.extras]
+reader = [ "pyinstaller" ]
 
 [tool.poetry.scripts]
 create-version-file = "poetry_versionfile.legacy:create_versionfile"

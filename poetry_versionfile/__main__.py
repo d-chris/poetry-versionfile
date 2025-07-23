@@ -4,6 +4,7 @@ import traceback as tb
 from pathlib import Path
 
 import click
+import clickx
 from pyinstaller_versionfile import create_versionfile
 from pyinstaller_versionfile import create_versionfile_from_distribution
 from pyinstaller_versionfile import create_versionfile_from_input_file
@@ -136,7 +137,7 @@ def options(func=None):
 
 
 @click.group()
-@click.version_option()
+@clickx.version("poetry_versionfile")
 def cli():
     """
     Powered by `pyinstaller_versionfile`.

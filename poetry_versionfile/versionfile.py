@@ -7,6 +7,8 @@ from pyinstaller_versionfile import __create
 from pyinstaller_versionfile.metadata import MetaData
 from pyinstaller_versionfile.metadata import MetadataKwargs
 
+from .format import format_file
+
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -81,5 +83,7 @@ def from_distribution(
     __create(MetaData(**meta), str(output_file))
 
     print(output_file.resolve(True))
+
+    format_file(output_file)
 
     return result

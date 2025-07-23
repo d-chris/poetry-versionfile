@@ -10,17 +10,25 @@ if t.TYPE_CHECKING:
     import os
 
 
-def fix_eof(filename: str | os.PathLike) -> bool:
+def fix_eof(filename: str | os.PathLike, **kwargs) -> bool:
     """Ensure the file ends with a single newline."""
 
-    with open(filename, "rb+") as file_obj:
-        return bool(fix_file(file_obj))
+    with open(filename, "rb+", **kwargs) as file_obj:
+        return fix_file(file_obj) > 0
 
 
-def format_file(filename: str | os.PathLike) -> bool:
-    """Remove tailing whitespace and ensure a single newline at the end of the file."""
+def format_file(filename: str | os.PathLike, **kwargs) -> bool:
+    """
+    Remove tailing whitespace and ensure a single newline at the end of the file.
 
-    space = fix_whitespace(str(filename), False, None)
+    Returns `True` if the file was modified, `False` otherwise.
+    """
+
+    space = fix_whitespace(
+        str(filename),
+        kwargs.get("is_markdown", False),
+        kwargs.get("chars", None),
+    )
     eof = fix_eof(filename)
 
     return space and eof
