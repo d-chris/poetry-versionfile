@@ -14,11 +14,10 @@ homepage = "https://github.com/d-chris/poetry-versionfile"
 [tool.poetry.dependencies]
 python = "^3.9"
 click = ">8.0.0"
-pre-commit-hooks = ">=5.0.0"
 pip = ">=25.1.1"
 tomli = { version = ">=2.2.1", python = "<3.11" }
 click-tools = { git = "https://github.com/d-chris/click-tools", rev = "1872b11a1957f25d3e09bc9ff68bf795047b5448" }
-pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile", rev = "3cf68d0d2ca79f3d270bcb934d7b2e936b8c9ae8" }
+pyinstaller-versionfile = { git = "https://github.com/d-chris/pyinstaller-versionfile", rev = "40a260f88ff6f9338e27528d9942871ed0c6bcda" }
 pyinstaller = { version = "^6.14.2", optional = true, python = "<3.14" }
 
 [tool.poetry.extras]
